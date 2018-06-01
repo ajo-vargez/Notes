@@ -11,6 +11,7 @@ import UIKit
 class EditVC: UIViewController {
     
     @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBAction func savePressed(_ sender: Any) {
         
