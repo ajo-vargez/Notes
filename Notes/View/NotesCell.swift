@@ -12,7 +12,7 @@ class NotesCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var detailsLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
 
     override func awakeFromNib() {
@@ -22,8 +22,6 @@ class NotesCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+       
     }
-
 }
