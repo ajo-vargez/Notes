@@ -32,49 +32,24 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //Mark: Read Firebase
     func readNotes()  {
-//        let  postRef = Database.database().reference().child("notes")
-//
-//        postRef.observe(.value, with: { snapshot in
-//
-//            var tempNotes = [Notes]()
-//
-//            for child in snapshot.children {
-//                if let childSnapshot = child as? DataSnapshot,
-//                let dict = childSnapshot.value as? [String: Any],
-//                let title = dict["title"] as? String,
-//                let description = dict["description"] as? String,
-//                    let timestamp = dict["timeStamp"] as? Double {
-//
-//                    let note = Notes(titleText: title, descriptionText: description, time: timestamp)
-//                    tempNotes.append(note)
-//                }
-//            }
-//            self.notes = tempNotes
-//            self.tableView.reloadData()
-//        })
-        
-        refHandle = postRef?.child("notes").observe(.value, with: { (snapshot) in
-            if let notesDict = snapshot.value as? [String: AnyObject] {
-                
-                print(notesDict)
-             
-               let note = Notes()
-//
-//                note.setValuesForKeys(notesDict)
-//                self.notes.append(note)
-                
-                let titleText = notesDict["titleText"] as? String
-                let descriptionText = notesDict["descriptionText"] as? String
-                let timeStamp = notesDict["timeStamp"] as? Double
-                
-                
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
+
+        refHandle = postRef?.child("notes").observe(.value, with: { snapshot in
+
+            var tempNotes = [Notes]()
+
+            for child in snapshot.children {
+                if let childSnapshot = child as? DataSnapshot,
+                let notesDict = childSnapshot.value as? [String: Any],
+                let titleText = notesDict["titleText"] as? String,
+                let descriptionText = notesDict["descriptionText"] as? String,
+                    let timeStamp = notesDict["timeStamp"] as? Double {                    
+                    let note = Notes(titletext: titleText, descriptiontext: descriptionText, timestamp: timeStamp)
+                    tempNotes.append(note)
                 }
             }
+            self.notes = tempNotes
+            self.tableView.reloadData()
         })
-        
     }
     
     //Mark: TableView Setup
@@ -84,18 +59,15 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotesCell") as? NotesCell
-       //cell?.set(note: notes[indexPath.row])
         cell?.titleLabel.text = notes[indexPath.row].titleText
         cell?.descriptionLabel.text = notes[indexPath.row].descriptionText
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let destinationViewController = storyboard.instantiateViewController(withIdentifier: "EditVC") as? EditVC
-//
-//
-//        self.navigationController?.pushViewController(destinationViewController!, animated: true)
+        let selectedCell : UITableViewCell = tableView.cellForRow(at: indexPath)! as! NotesCell
+        selectedCell.contentView.backgroundColor = UIColor(displayP3Red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.0)
+
         
         performSegue(withIdentifier: "EditVC", sender: self)
     }

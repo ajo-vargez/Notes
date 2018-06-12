@@ -14,4 +14,10 @@ class Notes : NSObject {
     var descriptionText : String?
     var timeStamp : Double?
     
+    init(titletext: String, descriptiontext: String, timestamp: Double) {
+        titleText = titletext
+        descriptionText = descriptiontext
+        timeStamp = timestamp
+    }
+    
 }
