@@ -18,8 +18,10 @@ class NotesCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-       
+    func setLabels(note: Notes)  {
+        self.titleLabel.text = note.titleText
+        self.descriptionLabel.text = note.descriptionText
+        //self.timeLabel. = note.timeStamp
     }
+    
 }

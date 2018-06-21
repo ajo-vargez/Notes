@@ -16,8 +16,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var notes = [Notes]()
     var refHandle : DatabaseHandle?
     var postRef : DatabaseReference?
-    var titl = [String]()
-    var des = [String]()
+    var titleToPass = String()
+    var descriptionToPass = String()
+    var indexToPass = NSInteger()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,16 +60,29 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NotesCell") as? NotesCell
-        cell?.titleLabel.text = notes[indexPath.row].titleText
-        cell?.descriptionLabel.text = notes[indexPath.row].descriptionText
+        cell?.setLabels(note: notes[indexPath.row])
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell : UITableViewCell = tableView.cellForRow(at: indexPath)! as! NotesCell
         selectedCell.contentView.backgroundColor = UIColor(displayP3Red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.0)
-
         
-        performSegue(withIdentifier: "EditVC", sender: self)
+        indexToPass = indexPath.row
+        
+        if selectedCell.isSelected == true {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    //Mark: Passing Data and Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditVC" {
+            let selectedCell = sender as! NotesCell
+            let destionationVC = segue.destination as! EditVC
+            destionationVC.passedTitle = selectedCell.titleLabel.text!
+            destionationVC.passedDescription = selectedCell.descriptionLabel.text!
+            destionationVC.indexPath = indexToPass
+        }
     }
 }

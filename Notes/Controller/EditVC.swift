@@ -14,14 +14,16 @@ class EditVC: UIViewController {
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    var getTitle = String()
-    var getDescription = String()
+    var passedTitle = String()
+    var passedDescription = String()
     
     var postRef : DatabaseReference!
+    var keyArray : [String] = []
+    var indexPath = NSInteger()
     
     @IBAction func savePressed(_ sender: Any) {
         if titleField.text != "" {
-            postRef = Database.database().reference().child("notes").childByAutoId()
+            let ref = postRef.child("notes").childByAutoId()
             
             let postObject = [
                 "titleText": titleField.text!,
@@ -29,7 +31,7 @@ class EditVC: UIViewController {
                 "timeStamp": [".sv": "timestamp"]
             ] as [String: Any]
             
-            postRef.setValue(postObject, withCompletionBlock: {error, ref in
+            ref.setValue(postObject, withCompletionBlock: {error, ref in
                 if error == nil {
                     _ = self.navigationController?.popViewController(animated: true)
                 } else {
@@ -40,13 +42,32 @@ class EditVC: UIViewController {
     }
     
     @IBAction func deletePressed(_ sender: Any) {
+        generateKeys()
         
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.postRef.child("notes").child(self.keyArray[self.indexPath]).removeValue()
+            self.keyArray = []
+        }
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleField.text! = getTitle
-        descriptionTextView.text! = getDescription
+        postRef = Database.database().reference()
+        
+        titleField.text! = passedTitle
+        descriptionTextView.text! = passedDescription
+    }
+    
+    func generateKeys() {
+        postRef.child("notes").observe(.value) { (snapshot) in
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let key = snap.key
+                self.keyArray.append(key)
+            }
+        }
     }
 }

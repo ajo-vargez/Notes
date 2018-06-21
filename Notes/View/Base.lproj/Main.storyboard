@@ -97,6 +97,7 @@
                                             <outlet property="descriptionLabel" destination="93g-ta-jE6" id="M25-d6-Icr"/>
                                             <outlet property="timeLabel" destination="4cu-kV-870" id="0Rg-gO-aRg"/>
                                             <outlet property="titleLabel" destination="tBw-JH-U9S" id="smN-Be-JBC"/>
+                                            <segue destination="0sF-Ax-sa5" kind="show" identifier="EditVC" id="m7K-gq-JMc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -123,7 +124,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="yyS-ve-NiW" id="Vhr-7F-acD"/>
-                        <segue destination="0sF-Ax-sa5" kind="show" identifier="EditVC" id="VLM-gt-KS1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -230,6 +230,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VLM-gt-KS1"/>
+        <segue reference="m7K-gq-JMc"/>
     </inferredMetricsTieBreakers>
 </document>
