@@ -61,6 +61,10 @@ class EditVC: UIViewController {
         descriptionTextView.text! = passedDescription
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func generateKeys() {
         postRef.child("notes").observe(.value) { (snapshot) in
             for child in snapshot.children {

@@ -31,6 +31,10 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         readNotes()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     //Mark: Read Firebase
     func readNotes()  {
 
