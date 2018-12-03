@@ -9,8 +9,9 @@
 import UIKit
 import FirebaseDatabase
 
-class EditVC: UIViewController {
+class EditVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
+    // MARK : - Declaration
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
@@ -52,17 +53,17 @@ class EditVC: UIViewController {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
+    // MARK : - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         postRef = Database.database().reference()
         
+        titleField.delegate = self
+        descriptionTextView.delegate = self
+        
         titleField.text! = passedTitle
         descriptionTextView.text! = passedDescription
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     func generateKeys() {
@@ -73,5 +74,18 @@ class EditVC: UIViewController {
                 self.keyArray.append(key)
             }
         }
+    }
+    
+    // MARK : - Keyboard Manipulation
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            descriptionTextView.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }

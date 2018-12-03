@@ -82,6 +82,7 @@
 				19A5ABED20BE8417004748C7 /* View */,
 				19A5ABEC20BE840A004748C7 /* Controller */,
 				19A5ABD820BE68AF004748C7 /* AppDelegate.swift */,
+				19A5ABDC20BE68AF004748C7 /* Main.storyboard */,
 				19A5ABDF20BE68F8004748C7 /* Assets.xcassets */,
 				19A5ABE120BE68F8004748C7 /* LaunchScreen.storyboard */,
 				19A5ABE420BE68F9004748C7 /* Info.plist */,
@@ -102,7 +103,6 @@
 		19A5ABED20BE8417004748C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				19A5ABDC20BE68AF004748C7 /* Main.storyboard */,
 				19A5ABEF20BE848D004748C7 /* NotesCell.swift */,
 			);
 			path = View;
@@ -158,6 +158,7 @@
 				TargetAttributes = {
 					19A5ABD420BE68AE004748C7 = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -399,7 +400,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.task.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -418,7 +419,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.task.Notes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
